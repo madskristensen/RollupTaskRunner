@@ -2,8 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/0iuflc2v5p3yt462?svg=true)](https://ci.appveyor.com/project/madskristensen/rolluptaskrunner)
 
-<!-- Update the VS Gallery link after you upload the VSIX-->
-Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery])
+Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/a9960a55-b878-4016-bd4e-0b010910a825)
 or get the [CI build](http://vsixgallery.com/extension/356dbaea-0513-4de0-8343-822a753e771b/).
 
 ---------------------------------------
