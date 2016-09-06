@@ -62,7 +62,7 @@ namespace RollupTaskRunner
 
             foreach (var config in configFiles)
             {
-                rollup.Children.Add(new TaskRunnerNode(config, true)
+                rollup.Children.Add(new TaskRunnerNode($"Rollup {config}", true)
                 {
                     Description = $"Execute the \"rollup\" for the {config} configuration file",
                     Command = new TaskRunnerCommand(cwd, "cmd.exe", $"/c rollup -c {config}")
@@ -76,14 +76,14 @@ namespace RollupTaskRunner
 
             foreach (var config in configFiles)
             {
-                watch.Children.Add(new TaskRunnerNode(config, true)
+                watch.Children.Add(new TaskRunnerNode($"Watch {config}", true)
                 {
                     Description = $"Execute the \"rollup -w\" for the {config} configuration file",
                     Command = new TaskRunnerCommand(cwd, "cmd.exe", $"/c rollup -w -c {config}")
                 });
             }
 
-            var root = new TaskRunnerNode("My Config");
+            var root = new TaskRunnerNode(Vsix.Name);
             root.Children.Add(rollup);
             root.Children.Add(watch);
 
@@ -94,7 +94,7 @@ namespace RollupTaskRunner
         {
             var configFiles = Directory.EnumerateFiles(cwd, "rollup.config.*");
 
-            return configFiles.Select(file => Path.GetFileName(file));
+            return configFiles.Select(file => Path.GetFileName(file)).Where(file => Path.GetExtension(file) == ".js");
         }
     }
 }
