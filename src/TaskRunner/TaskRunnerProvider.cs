@@ -9,10 +9,6 @@ using Microsoft.VisualStudio.TaskRunnerExplorer;
 
 namespace RollupTaskRunner
 {
-    /// <summary>
-    /// This class will be called by Visual Studio automatically when a project
-    /// is being opened that contains myconfig.json in the project- or solution root folder.
-    /// </summary>
     [TaskRunnerExport("rollup.config.js")]
     public class TaskRunnerProvider : ITaskRunner
     {
@@ -45,11 +41,6 @@ namespace RollupTaskRunner
             });
         }
 
-        /// <summary>
-        /// Construct any task hierarchy that you need.
-        /// Task Runner Explorer will automatically have node.exe and npm.cmd on the PATH
-        /// and you can control that in Tools -> Options -> Projects & Solutions -> External Web Tools
-        /// </summary>
         private ITaskRunnerNode LoadHierarchy(string configPath)
         {
             string cwd = Path.GetDirectoryName(configPath);
@@ -62,7 +53,7 @@ namespace RollupTaskRunner
 
             foreach (var config in configFiles)
             {
-                rollup.Children.Add(new TaskRunnerNode($"Rollup {config}", true)
+                rollup.Children.Add(new TaskRunnerNode(GenerateTaskName("Rollup", config), true)
                 {
                     Description = $"Execute the \"rollup\" for the {config} configuration file",
                     Command = new TaskRunnerCommand(cwd, "cmd.exe", $"/c rollup -c {config}")
@@ -76,18 +67,38 @@ namespace RollupTaskRunner
 
             foreach (var config in configFiles)
             {
-                watch.Children.Add(new TaskRunnerNode($"Watch {config}", true)
+                watch.Children.Add(new TaskRunnerNode(GenerateTaskName("Watch", config), true)
                 {
                     Description = $"Execute the \"rollup -w\" for the {config} configuration file",
                     Command = new TaskRunnerCommand(cwd, "cmd.exe", $"/c rollup -w -c {config}")
                 });
             }
 
+            return CreateRoot(rollup, watch);
+        }
+
+        private TaskRunnerNode CreateRoot(params TaskRunnerNode[] nodes)
+        {
             var root = new TaskRunnerNode(Vsix.Name);
-            root.Children.Add(rollup);
-            root.Children.Add(watch);
+
+            foreach (var node in nodes)
+            {
+                var children = node.Children.OrderBy(c => c.Name).ToList();
+                node.Children.Clear();
+                node.Children.AddRange(children);
+
+                root.Children.Add(node);
+            }
 
             return root;
+        }
+
+        private string GenerateTaskName(string prefix, string config)
+        {
+            string clean = config.Replace("rollup.config", string.Empty);
+            string noExt = Path.GetFileNameWithoutExtension(clean).Trim('.');
+
+            return $"{prefix} {noExt}".Trim();
         }
 
         private IEnumerable<string> GetConfigFileNames(string cwd)
