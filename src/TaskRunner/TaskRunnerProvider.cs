@@ -6,14 +6,25 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.VisualStudio.TaskRunnerExplorer;
+using System.Reflection;
 
 namespace RollupTaskRunner
 {
     [TaskRunnerExport("rollup.config.js")]
     public class TaskRunnerProvider : ITaskRunner
     {
-        private static ImageSource _icon = new BitmapImage(new Uri(@"pack://application:,,,/RollupTaskRunner;component/Resources/logo.png"));
+        private static ImageSource _icon;
         private List<ITaskRunnerOption> _options;
+
+        public TaskRunnerProvider()
+        {
+            if (_icon == null)
+            {
+                string assembly = Assembly.GetExecutingAssembly().Location;
+                string folder = Path.GetDirectoryName(assembly);
+                _icon = new BitmapImage(new Uri(Path.Combine(folder, "Resources\\logo.png")));
+            }
+        }
 
         public List<ITaskRunnerOption> Options
         {

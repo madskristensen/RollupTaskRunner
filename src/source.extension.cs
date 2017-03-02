@@ -11,7 +11,7 @@ namespace RollupTaskRunner
         public const string Name = "Rollup Task Runner";
         public const string Description = @"Task Runner Explorer support for Rollup.js - The next generation JavaScript module bundler.";
         public const string Language = "en-US";
-        public const string Version = "1.1";
+        public const string Version = "1.1.1";
         public const string Author = "Mads Kristensen";
         public const string Tags = "rollup, task runner, javascript, bundler";
     }

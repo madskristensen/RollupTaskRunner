@@ -1,26 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-  <Metadata>
-    <Identity Id="356dbaea-0513-4de0-8343-822a753e771b" Version="1.1" Language="en-US" Publisher="Mads Kristensen" />
-    <DisplayName>Rollup Task Runner</DisplayName>
-    <Description xml:space="preserve">Task Runner Explorer support for Rollup.js - The next generation JavaScript module bundler.</Description>
-    <MoreInfo>https://github.com/madskristensen/RollupTaskRunner</MoreInfo>
-    <License>Resources\LICENSE</License>
-    <ReleaseNotes>https://github.com/madskristensen/RollupTaskRunner/blob/master/CHANGELOG.md</ReleaseNotes>
-    <Icon>Resources\icon.png</Icon>
-    <PreviewImage>Resources\preview.png</PreviewImage>
-    <Tags>rollup, task runner, javascript, bundler</Tags>
-  </Metadata>
-  <Installation>
-    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="14.0" />
-    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="15.0" />
-  </Installation>
+    <Metadata>
+        <Identity Id="356dbaea-0513-4de0-8343-822a753e771b" Version="1.1.1" Language="en-US" Publisher="Mads Kristensen" />
+        <DisplayName>Rollup Task Runner</DisplayName>
+        <Description xml:space="preserve">Task Runner Explorer support for Rollup.js - The next generation JavaScript module bundler.</Description>
+        <MoreInfo>https://github.com/madskristensen/RollupTaskRunner</MoreInfo>
+        <License>Resources\LICENSE</License>
+        <ReleaseNotes>https://github.com/madskristensen/RollupTaskRunner/blob/master/CHANGELOG.md</ReleaseNotes>
+        <Icon>Resources\icon.png</Icon>
+        <PreviewImage>Resources\preview.png</PreviewImage>
+        <Tags>rollup, task runner, javascript, bundler</Tags>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="14.0" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="15.0" />
+    </Installation>
     <Prerequisites>
         <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
         <Prerequisite Id="Microsoft.VisualStudio.Component.Web" Version="[15.0,16.0)" DisplayName="Web development tools" />
     </Prerequisites>
-  <Assets>
-    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
-  </Assets>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+    </Assets>
 </PackageManifest>
