@@ -47,7 +47,7 @@ namespace RollupTaskRunner
         {
             return await Task.Run(() =>
             {
-                var hierarchy = LoadHierarchy(configPath);
+                ITaskRunnerNode hierarchy = LoadHierarchy(configPath);
                 return new TaskRunnerConfig(hierarchy, _icon);
             });
         }
@@ -55,14 +55,14 @@ namespace RollupTaskRunner
         private ITaskRunnerNode LoadHierarchy(string configPath)
         {
             string cwd = Path.GetDirectoryName(configPath);
-            var configFiles = GetConfigFileNames(cwd);
+            IEnumerable<string> configFiles = GetConfigFileNames(cwd);
 
             var rollup = new TaskRunnerNode("Rollup")
             {
                 Description = "Executes the \"rollup\" command",
             };
 
-            foreach (var config in configFiles)
+            foreach (string config in configFiles)
             {
                 rollup.Children.Add(new TaskRunnerNode(GenerateTaskName("Rollup", config), true)
                 {
@@ -76,7 +76,7 @@ namespace RollupTaskRunner
                 Description = "Executes the \"rollup -w\" command",
             };
 
-            foreach (var config in configFiles)
+            foreach (string config in configFiles)
             {
                 watch.Children.Add(new TaskRunnerNode(GenerateTaskName("Watch", config), true)
                 {
@@ -92,7 +92,7 @@ namespace RollupTaskRunner
         {
             var root = new TaskRunnerNode(Vsix.Name);
 
-            foreach (var node in nodes)
+            foreach (TaskRunnerNode node in nodes)
             {
                 var children = node.Children.OrderBy(c => c.Name).ToList();
                 node.Children.Clear();
@@ -114,7 +114,7 @@ namespace RollupTaskRunner
 
         private IEnumerable<string> GetConfigFileNames(string cwd)
         {
-            var configFiles = Directory.EnumerateFiles(cwd, "rollup.config.*");
+            IEnumerable<string> configFiles = Directory.EnumerateFiles(cwd, "rollup.config.*");
 
             return configFiles.Select(file => Path.GetFileName(file)).Where(file => Path.GetExtension(file) == ".js");
         }

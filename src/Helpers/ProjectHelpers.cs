@@ -26,8 +26,10 @@ namespace RollupTaskRunner
             if (DTE.SourceControl.IsItemUnderSCC(file) && !DTE.SourceControl.IsItemCheckedOut(file))
                 DTE.SourceControl.CheckOutItem(file);
 
-            FileInfo info = new FileInfo(file);
-            info.IsReadOnly = false;
+            var info = new FileInfo(file)
+            {
+                IsReadOnly = false
+            };
         }
 
         public static void AddFileToProject(this Project project, string file, string itemType = null)

@@ -34,7 +34,7 @@ namespace RollupTaskRunner
 
             if (File.Exists(bindingPath))
             {
-                foreach (var line in File.ReadAllLines(bindingPath))
+                foreach (string line in File.ReadAllLines(bindingPath))
                 {
                     if (line.StartsWith("///<binding"))
                         return line.TrimStart('/').Trim();
@@ -54,9 +54,9 @@ namespace RollupTaskRunner
 
                 if (File.Exists(bindingPath))
                 {
-                    var lines = File.ReadAllLines(bindingPath);
+                    string[] lines = File.ReadAllLines(bindingPath);
 
-                    foreach (var line in lines)
+                    foreach (string line in lines)
                     {
                         if (!line.TrimStart().StartsWith("///<binding", StringComparison.OrdinalIgnoreCase))
                             sb.AppendLine(line);
@@ -82,7 +82,7 @@ namespace RollupTaskRunner
             }
             catch (Exception ex)
             {
-                Logger.Log(ex);
+                System.Diagnostics.Debug.Write(ex);
                 return false;
             }
         }
